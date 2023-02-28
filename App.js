@@ -1,20 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AccountScreen from "./src/screens/AccountScreen";
+import TrackListScreen from "./src/screens/TrackListScreen";
+import TrackCreateScreen from "./src/screens/TrackCreateScreen";
+import SigninScreen from "./src/screens/SigninScreen";
+import SignupScreen from "./src/screens/SignupScreen";
+import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+const isSignedIn = false;
+
+function Home() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator>
+      <Tab.Screen name="TrackList" component={TrackListScreen} />
+      <Tab.Screen name="TrackDetail" component={TrackDetailScreen} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => {
+  return isSignedIn ? (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen
+          name={"Home"}
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
+        <Tab.Screen name="Account" component={AccountScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  ) : (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Signin" component={SigninScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
