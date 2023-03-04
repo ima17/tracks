@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Text, Input, Button } from "@rneui/themed";
 import Spacer from "../components/spacer";
+import { Context as AuthContext } from "../context/authContext";
 
 const SignupScreen = () => {
+  const { signup, state } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,7 +31,7 @@ const SignupScreen = () => {
         secureTextEntry
       />
       <Spacer>
-        <Button title="Signup" />
+        <Button title="Signup" onPress={() => signup({ email, password })} />
       </Spacer>
     </View>
   );
