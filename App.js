@@ -7,11 +7,14 @@ import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackListScreen from "./src/screens/TrackListScreen";
-import { Provider as AuthProvider } from "./src/context/authContext";
+import {
+  Provider as AuthProvider,
+  Context as AuthContext,
+} from "./src/context/authContext";
+import { useContext } from "react";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-const isSignedIn = false;
 
 function Home() {
   return (
@@ -23,7 +26,9 @@ function Home() {
 }
 
 const App = () => {
-  return isSignedIn ? (
+  const { state } = useContext(AuthContext);
+
+  return state.token ? (
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen
