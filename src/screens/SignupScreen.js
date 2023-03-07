@@ -1,48 +1,26 @@
-import React, { useContext, useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Text, Input, Button } from "@rneui/themed";
-import Spacer from "../components/spacer";
+import React, { useContext } from "react";
+import { View, StyleSheet } from "react-native";
 import { Context as AuthContext } from "../context/authContext";
+import AuthForm from "../components/AuthForm";
+import Navilink from "../components/NavLink";
 
-const SignupScreen = ({ navigation }) => {
+const SignupScreen = () => {
   const { signup, state } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   return (
     <View style={styles.container}>
-      <Spacer>
-        <Text h3>Sign Up For Tracker</Text>
-      </Spacer>
-      <Input
-        label="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        autoCorrect={false}
+      <AuthForm
+        headerText="Sign Up for Tracker"
+        errorMessage={state.errorMessage}
+        submitButtonText="Sign Up"
+        onSubmit={({ email, password }) => {
+          signup({ email, password });
+        }}
       />
-      <Spacer />
-      <Input
-        label="Password"
-        value={password}
-        onChangeText={setPassword}
-        autoCapitalize="none"
-        autoCorrect={false}
-        secureTextEntry
+      <Navilink
+        text="Already have an account? Sign In instead."
+        routeName="Signin"
       />
-      {state.errorMessage ? (
-        <Text style={styles.error}>{state.errorMessage}</Text>
-      ) : null}
-      <Spacer>
-        <Button title="Signup" onPress={() => signup({ email, password })} />
-      </Spacer>
-      <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
-        <Spacer>
-          <Text style={styles.link}>
-            Already have an account? Sign In instead.
-          </Text>
-        </Spacer>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -52,15 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     marginBottom: 250,
-  },
-  error: {
-    marginTop: 15,
-    marginLeft: 15,
-    color: "red",
-    fontSize: 16,
-  },
-  link: {
-    color: "blue",
   },
 });
 
