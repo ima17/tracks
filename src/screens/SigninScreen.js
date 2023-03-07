@@ -1,36 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet } from "react-native";
-import { Text, Input, Button } from "@rneui/themed";
-import Spacer from "../components/spacer";
+import { Context as AuthContext } from "../context/authContext";
+import AuthForm from "../components/AuthForm";
+import Navilink from "../components/NavLink";
 
-const SigninScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const SignupScreen = () => {
+  const { signin, state } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
-      <Spacer>
-        <Text h3>Sign In with Tracker</Text>
-      </Spacer>
-      <Input
-        label="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        autoCorrect={false}
+      <AuthForm
+        headerText="Sign In to Your Account"
+        errorMessage={state.errorMessage}
+        submitButtonText="Sign In"
+        onSubmit={({ email, password }) => {
+          signin({ email, password });
+        }}
       />
-      <Spacer />
-      <Input
-        label="Password"
-        value={password}
-        onChangeText={setPassword}
-        autoCapitalize="none"
-        autoCorrect={false}
-        secureTextEntry
+      <Navilink
+        text="Don't have an account? Sign Up instead."
+        routeName="Signup"
       />
-      <Spacer>
-        <Button title="Signin" />
-      </Spacer>
     </View>
   );
 };
@@ -43,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SigninScreen;
+export default SignupScreen;
