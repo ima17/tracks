@@ -4,10 +4,13 @@ import { Context as AuthContext } from "../context/authContext";
 import AuthForm from "../components/AuthForm";
 import Navilink from "../components/NavLink";
 
-const SignupScreen = ({navigation}) => {
-  const { signup, state, clearErrorMessage } = useContext(AuthContext);
+const SignupScreen = ({ navigation }) => {
+  const { signup, state, clearErrorMessage, tryLocalSignin } =
+    useContext(AuthContext);
 
   React.useEffect(() => {
+    tryLocalSignin();
+
     navigation.addListener("blur", () => {
       clearErrorMessage();
     });
