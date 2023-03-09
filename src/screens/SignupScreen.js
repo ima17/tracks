@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { Context as AuthContext } from "../context/authContext";
 import AuthForm from "../components/AuthForm";
@@ -8,9 +8,7 @@ const SignupScreen = ({ navigation }) => {
   const { signup, state, clearErrorMessage, tryLocalSignin } =
     useContext(AuthContext);
 
-  React.useEffect(() => {
-    tryLocalSignin();
-
+  useEffect(() => {
     navigation.addListener("blur", () => {
       clearErrorMessage();
     });
