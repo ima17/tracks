@@ -38,7 +38,7 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
-        <Tab.Screen name="Account" component={AccountScreen} />
+        <Tab.Screen name="Account" component={AccountScreen} options={{ headerShown: false }}/>
       </Tab.Navigator>
     </NavigationContainer>
   ) : (
