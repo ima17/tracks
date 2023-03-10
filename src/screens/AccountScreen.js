@@ -8,7 +8,7 @@ const AccountScreen = () => {
   const { signout } = useContext(AuthContext);
 
   return (
-    <View>
+    <View style={styles.container}>
       <Spacer>
         <Text h3>Sign Out from Tracker</Text>
       </Spacer>
@@ -20,6 +20,10 @@ const AccountScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 50,
+  },
+});
 
 export default AccountScreen;
