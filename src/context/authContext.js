@@ -10,6 +10,8 @@ const authReducer = (state, action) => {
       return { ...state, errorMessage: "" };
     case "signin":
       return { errorMessage: "", token: action.payload };
+    case "set_loading":
+      return { isLoading: false };
     case "signout":
       return { token: null, errorMessage: null };
     default:
@@ -39,6 +41,8 @@ const tryLocalSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem("token");
   if (token) {
     dispatch({ type: "signin", payload: token });
+  } else {
+    dispatch({ type: "set_loading" });
   }
 };
 
@@ -65,5 +69,5 @@ const signout = (dispatch) => async () => {
 export const { Provider, Context } = createDataContext(
   authReducer,
   { signup, signin, signout, clearErrorMessage, tryLocalSignin },
-  { token: null, errorMessage: "" }
+  { token: null, errorMessage: "", isLoading: true }
 );

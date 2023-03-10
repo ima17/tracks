@@ -7,7 +7,7 @@ import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackListScreen from "./src/screens/TrackListScreen";
-import ResultAuthScreen from "./src/screens/ResultAuthScreen";
+import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import {
   Provider as AuthProvider,
   Context as AuthContext,
@@ -38,17 +38,23 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
-        <Tab.Screen name="Account" component={AccountScreen} options={{ headerShown: false }}/>
+        <Tab.Screen
+          name="Account"
+          component={AccountScreen}
+          options={{ headerShown: false }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   ) : (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="ResolveAuth"
-          component={ResultAuthScreen}
-          options={{ headerShown: false }}
-        />
+        {state.isLoading ? (
+          <Stack.Screen
+            name="ResolveAuth"
+            component={ResolveAuthScreen}
+            options={{ headerShown: false }}
+          />
+        ) : null}
         <Stack.Screen
           name="Signup"
           component={SignupScreen}
