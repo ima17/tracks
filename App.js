@@ -20,8 +20,16 @@ const Stack = createNativeStackNavigator();
 function Home() {
   return (
     <Stack.Navigator>
-      <Tab.Screen name="TrackList" component={TrackListScreen} />
-      <Tab.Screen name="TrackDetail" component={TrackDetailScreen} />
+      <Tab.Screen
+        name="TrackList"
+        component={TrackListScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="TrackDetail"
+        component={TrackDetailScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -37,7 +45,11 @@ const App = () => {
           component={Home}
           options={{ headerShown: false }}
         />
-        <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
+        <Tab.Screen
+          name="TrackCreate"
+          component={TrackCreateScreen}
+          options={{ headerShown: false }}
+        />
         <Tab.Screen
           name="Account"
           component={AccountScreen}
