@@ -1,3 +1,4 @@
+import "../_mockLocation"
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { Polyline } from "react-native-maps";
