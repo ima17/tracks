@@ -1,4 +1,4 @@
-import "../_mockLocation"
+import "../_mockLocation";
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { Polyline } from "react-native-maps";
@@ -24,17 +24,32 @@ const Map = () => {
     }
   }
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Please enable location services");
-        return;
-      }
+  const startWatching = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
+    if (status !== "granted") {
+      setErrorMsg("Please enable location services");
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    setLocation(location);
+    console.log(location);
+
+    await Location.watchPositionAsync(
+      {
+        accuracy: Location.Accuracy.BestForNavigation,
+        timeInterval: 1000,
+        distanceInterval: 10,
+      },
+      (location) => {
+        console.log(location);
+      }
+    );
+  };
+
+  useEffect(() => {
+    startWatching();
   }, []);
 
   return (
