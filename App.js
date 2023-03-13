@@ -8,6 +8,7 @@ import SignupScreen from "./src/screens/SignupScreen";
 import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackListScreen from "./src/screens/TrackListScreen";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
+import { Provider as LocationProvider } from "./src/context/locationContext";
 import {
   Provider as AuthProvider,
   Context as AuthContext,
@@ -84,8 +85,10 @@ const App = () => {
 
 export default () => {
   return (
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <LocationProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </LocationProvider>
   );
 };
