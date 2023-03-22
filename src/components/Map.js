@@ -1,7 +1,7 @@
 import "../_mockLocation";
 import React, { useState, useEffect, useContext } from "react";
 import { ActivityIndicator, StyleSheet } from "react-native";
-import MapView, { Polyline } from "react-native-maps";
+import MapView, { Polyline, Circle } from "react-native-maps";
 import { Text } from "react-native";
 import * as Location from "expo-location";
 import { Context as LocationContext } from "../context/locationContext";
@@ -54,12 +54,14 @@ const Map = () => {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
-        region={{
-          ...currentLocation.coords,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}
-      ></MapView>
+      >
+        <Circle
+          center={currentLocation.coords}
+          radius={30}
+          strokeColor="rgba(158,158,255,1.0)"
+          fillColor="rgba(158,158,255,0.3)"
+        />
+      </MapView>
       {errorMsg ? <Text>{errorMsg}</Text> : null}
     </>
   );
