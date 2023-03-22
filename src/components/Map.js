@@ -1,28 +1,18 @@
 import "../_mockLocation";
-import React, { useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import { ActivityIndicator, StyleSheet } from "react-native";
 import MapView, { Polyline } from "react-native-maps";
 import { Text } from "react-native";
 import * as Location from "expo-location";
+import { Context as LocationContext } from "../context/locationContext";
 
 const Map = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
-  let points = [];
-  for (let i = 0; i < 10; i++) {
-    if (i % 2 === 0) {
-      points.push({
-        latitude: 37.78825 + i * 0.001,
-        longitude: -122.4324 + i * 0.001,
-      });
-    } else {
-      points.push({
-        latitude: 37.78825 - i * 0.002,
-        longitude: -122.4324 + i * 0.002,
-      });
-    }
-  }
+  const {
+    addLocation,
+    state: { currentLocation },
+  } = useContext(LocationContext);
 
   const startWatching = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -34,7 +24,6 @@ const Map = () => {
 
     let location = await Location.getCurrentPositionAsync({});
     setLocation(location);
-    console.log(location);
 
     await Location.watchPositionAsync(
       {
@@ -43,7 +32,7 @@ const Map = () => {
         distanceInterval: 10,
       },
       (location) => {
-        console.log(location);
+        addLocation(location);
       }
     );
   };
@@ -52,19 +41,25 @@ const Map = () => {
     startWatching();
   }, []);
 
+  if (!currentLocation) {
+    return <ActivityIndicator size="large" />;
+  }
+
   return (
     <>
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          ...currentLocation.coords,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
-      >
-        <Polyline coordinates={points} />
-      </MapView>
+        region={{
+          ...currentLocation.coords,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+      ></MapView>
       {errorMsg ? <Text>{errorMsg}</Text> : null}
     </>
   );
