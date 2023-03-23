@@ -2,15 +2,10 @@ import "../_mockLocation";
 import React, { useContext } from "react";
 import { ActivityIndicator, StyleSheet } from "react-native";
 import MapView, { Circle } from "react-native-maps";
-import { Text } from "react-native";
-import { Context as LocationContext } from "../context/locationContext";
-import useLocation from "../hooks/useLocation";
+import { Context as LocationContext } from "../context/locationContext";";
 
 const Map = () => {
-  const [errorMsg] = useLocation((location) => addLocation(location));
-
   const {
-    addLocation,
     state: { currentLocation },
   } = useContext(LocationContext);
 
@@ -35,7 +30,6 @@ const Map = () => {
           fillColor="rgba(158,158,255,0.3)"
         />
       </MapView>
-      {errorMsg ? <Text>{errorMsg}</Text> : null}
     </>
   );
 };
