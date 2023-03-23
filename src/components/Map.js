@@ -2,7 +2,7 @@ import "../_mockLocation";
 import React, { useContext } from "react";
 import { ActivityIndicator, StyleSheet } from "react-native";
 import MapView, { Circle } from "react-native-maps";
-import { Context as LocationContext } from "../context/locationContext";";
+import { Context as LocationContext } from "../context/locationContext";
 
 const Map = () => {
   const {
