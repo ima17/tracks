@@ -3,7 +3,6 @@ import * as Location from "expo-location";
 
 export default (callback) => {
   const [errorMsg, setErrorMsg] = useState(null);
-  const [location, setLocation] = useState(null);
 
   const startWatching = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -13,8 +12,7 @@ export default (callback) => {
       return;
     }
 
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
+    await Location.getCurrentPositionAsync({});
 
     await Location.watchPositionAsync(
       {
