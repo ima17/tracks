@@ -1,45 +1,18 @@
 import "../_mockLocation";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { ActivityIndicator, StyleSheet } from "react-native";
-import MapView, { Polyline, Circle } from "react-native-maps";
+import MapView, { Circle } from "react-native-maps";
 import { Text } from "react-native";
-import * as Location from "expo-location";
 import { Context as LocationContext } from "../context/locationContext";
+import useLocation from "../hooks/useLocation";
 
 const Map = () => {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [errorMsg] = useLocation((location) => addLocation(location));
+
   const {
     addLocation,
     state: { currentLocation },
   } = useContext(LocationContext);
-
-  const startWatching = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-
-    if (status !== "granted") {
-      setErrorMsg("Please enable location services");
-      return;
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
-
-    await Location.watchPositionAsync(
-      {
-        accuracy: Location.Accuracy.BestForNavigation,
-        timeInterval: 1000,
-        distanceInterval: 10,
-      },
-      (location) => {
-        addLocation(location);
-      }
-    );
-  };
-
-  useEffect(() => {
-    startWatching();
-  }, []);
 
   if (!currentLocation) {
     return <ActivityIndicator size="large" />;
