@@ -13,6 +13,7 @@ import {
   Provider as AuthProvider,
   Context as AuthContext,
 } from "./src/context/authContext";
+import { Provider as TrackProvider } from "./src/context/trackContext";
 import { useContext } from "react";
 
 const Tab = createBottomTabNavigator();
@@ -85,10 +86,12 @@ const App = () => {
 
 export default () => {
   return (
-    <LocationProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </LocationProvider>
+    <TrackProvider>
+      <LocationProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </LocationProvider>
+    </TrackProvider>
   );
 };
