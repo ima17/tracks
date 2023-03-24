@@ -1,15 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Input, Button } from "@rneui/base";
 import Spacer from "./spacer";
+import { Context as LocationContext } from "../context/locationContext";
 
 const TrackForm = () => {
+  const {
+    state: { name, recording, locations },
+    startRecording,
+    stopRecording,
+    changeName,
+  } = useContext(LocationContext);
+
+  console.log(name);
+
   return (
     <>
       <Spacer>
-        <Input placeholder="Enter a Name" />
+        <Input
+          placeholder="Enter a Name"
+          onChangeText={changeName}
+          value={name}
+        />
       </Spacer>
       <Spacer>
-        <Button title="Start Recording" />
+        {recording ? (
+          <Button title="Stop" onPress={stopRecording} />
+        ) : (
+          <Button title="Start Recording" onPress={startRecording} />
+        )}
       </Spacer>
     </>
   );
