@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text } from "@rneui/base";
@@ -11,9 +11,10 @@ import TrackForm from "../components/TrackForm";
 const TrackCreateScreen = () => {
   const isFocused = useIsFocused();
   const { addLocation, state } = useContext(LocationContext);
-  const [errorMsg] = useLocation(isFocused, (location) =>
-    addLocation(state.recording, location)
+  const callback = useCallback((location) =>
+    addLocation(state.recording, location),[state.recording]
   );
+  const [errorMsg] = useLocation(isFocused, callback);
 
   return (
     <SafeAreaView forceInset={{ top: "always" }}>

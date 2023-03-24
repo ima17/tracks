@@ -11,7 +11,7 @@ const TrackForm = () => {
     changeName,
   } = useContext(LocationContext);
 
-  console.log(name);
+  console.log(locations.lenght);
 
   return (
     <>
