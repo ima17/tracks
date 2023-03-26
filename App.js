@@ -26,7 +26,7 @@ function Home() {
       <Tab.Screen
         name="TrackList"
         component={TrackListScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
       <Tab.Screen
         name="TrackDetail"
