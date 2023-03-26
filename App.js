@@ -16,6 +16,7 @@ import {
 import { Provider as TrackProvider } from "./src/context/trackContext";
 import { useContext } from "react";
 import { setNavigator } from "./src/navigationRefs";
+import { FontAwesome } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -46,17 +47,32 @@ const App = () => {
         <Tab.Screen
           name={"Home"}
           component={Home}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ tintColor }) => (
+              <FontAwesome name="th-list" size={24} color="black" />
+            ),
+          }}
         />
         <Tab.Screen
           name="TrackCreate"
           component={TrackCreateScreen}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+            tabBarIcon: () => (
+              <FontAwesome name="plus" size={24} color="black" />
+            ),
+          }}
         />
         <Tab.Screen
           name="Account"
           component={AccountScreen}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+            tabBarIcon: () => (
+              <FontAwesome name="gear" size={24} color="black" />
+            ),
+          }}
         />
       </Tab.Navigator>
     </NavigationContainer>
