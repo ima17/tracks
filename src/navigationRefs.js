@@ -7,10 +7,11 @@ export const setNavigator = (nav) => {
 };
 
 export const navigate = (routeName, params) => {
+  console.log(navigator);
   navigator.dispatch(
     CommonActions.navigate({
       name: routeName,
-      params
+      params,
     })
   );
 };

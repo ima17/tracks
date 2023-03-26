@@ -15,6 +15,7 @@ import {
 } from "./src/context/authContext";
 import { Provider as TrackProvider } from "./src/context/trackContext";
 import { useContext } from "react";
+import { setNavigator } from "./src/navigationRefs";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -40,7 +41,7 @@ const App = () => {
   const { state } = useContext(AuthContext);
 
   return state.token ? (
-    <NavigationContainer>
+    <NavigationContainer ref={(navigator) => setNavigator(navigator)}>
       <Tab.Navigator>
         <Tab.Screen
           name={"Home"}
