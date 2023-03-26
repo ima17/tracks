@@ -17,13 +17,13 @@ const createTrack = (dispatch) => async (name, locations) => {
     console.log(err);
   }
 };
-const fetchTrack = (dispatch) => async () => {
+const fetchTracks = (dispatch) => async () => {
   const response = await TrackerApi.get("/tracks");
   dispatch({ type: "fetch_tracks", payload: response.data });
 };
 
 export const { Context, Provider } = createDataContext(
   trackReducer,
-  { createTrack, fetchTrack },
+  { createTrack, fetchTracks },
   []
 );
