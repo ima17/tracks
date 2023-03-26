@@ -31,7 +31,7 @@ function Home() {
       <Tab.Screen
         name="TrackDetail"
         component={TrackDetailScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
     </Stack.Navigator>
   );
