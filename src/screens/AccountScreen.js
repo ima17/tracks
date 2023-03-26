@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { Button, Text } from "@rneui/base";
 import Spacer from "../components/spacer";
 import { SafeAreaView } from "react-native-safe-area-context";
