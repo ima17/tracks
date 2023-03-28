@@ -10,7 +10,7 @@ const TrackListScreen = () => {
 
   return (
     <>
-      <NavigationEvents onWillFocus={fetchTracks} />
+      <NavigationEvents onWillFocus={() => fetchTracks()} />
       <FlatList
         data={state}
         keyExtractor={(item) => item._id}
