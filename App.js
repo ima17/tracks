@@ -27,12 +27,12 @@ function Home() {
       <Tab.Screen
         name="TrackList"
         component={TrackListScreen}
-        options={{ headerShown: true }}
+        options={{ title: "Tracks" }}
       />
       <Tab.Screen
         name="TrackDetail"
         component={TrackDetailScreen}
-        options={{ headerShown: true }}
+        options={({ route }) => ({ title: route.params.name })}
       />
     </Stack.Navigator>
   );
