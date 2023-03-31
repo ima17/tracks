@@ -1,5 +1,10 @@
 import React, { useContext } from "react";
-import { FlatList, TouchableOpacity, ScrollView } from "react-native";
+import {
+  FlatList,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { NavigationEvents } from "@react-navigation/compat";
 import { Context as TrackContext } from "../context/trackContext";
 import { ListItem } from "@rneui/base";
@@ -16,14 +21,16 @@ const TrackListScreen = () => {
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
           return (
-            <ScrollView>
+            <ScrollView style={styles.listStyle}>
               <TouchableOpacity
                 onPress={() => {
                   navigate("TrackDetail", { _id: item._id, name: item.name });
                 }}
               >
-                <ListItem bottomDivider topDivider>
-                  <ListItem.Title>{item.name}</ListItem.Title>
+                <ListItem>
+                  <ListItem.Content>
+                    <ListItem.Title>{item.name}</ListItem.Title>
+                  </ListItem.Content>
                   <ListItem.Chevron />
                 </ListItem>
               </TouchableOpacity>
@@ -34,4 +41,12 @@ const TrackListScreen = () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  listStyle: {
+    marginTop: 10,
+    marginHorizontal: 10,
+  },
+});
+
 export default TrackListScreen;
