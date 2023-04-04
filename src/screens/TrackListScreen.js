@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { NavigationEvents } from "@react-navigation/compat";
 import { Context as TrackContext } from "../context/trackContext";
-import { ListItem } from "@rneui/base";
+import { ListItem, Text } from "@rneui/base";
 import { navigate } from "../navigationRefs";
 
 const TrackListScreen = () => {
@@ -26,12 +26,15 @@ const TrackListScreen = () => {
     <>
       <NavigationEvents
         onWillFocus={() => {
-          console.log("fsds");
           fetchTracks();
         }}
       />
       {loading ? (
         <ActivityIndicator size="large" style={styles.loadingIndicator} />
+      ) : state.length === 0 ? (
+        <Text style={styles.defaultText}>
+          Created tracks will be shown here..
+        </Text>
       ) : (
         <FlatList
           data={state}
@@ -69,6 +72,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  defaultText: {
+    margin: 15,
   },
 });
 
