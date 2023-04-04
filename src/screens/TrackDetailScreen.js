@@ -23,9 +23,9 @@ const TrackDetailScreen = ({ route }) => {
         }}
         style={styles.map}
       >
-        {locations.length > 0 && (
+        {tracks.locations.length > 0 && (
           <Polyline
-            coordinates={locations.map((location) => location.coords)}
+            coordinates={tracks.locations.map((location) => location.coords)}
           />
         )}
       </MapView>
