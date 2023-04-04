@@ -142,3 +142,5 @@ package-lock.json
 .metro-health-check*
 
 .expo
+.env
+eas.json
