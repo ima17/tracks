@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Context as TrackContext } from "../context/trackContext";
-import MapView, { Polyline } from "react-native-maps";
+import MapView, { Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 import { MAPSTYLE } from "../constants/mapStyle";
 
 const TrackDetailScreen = ({ route }) => {
@@ -14,6 +14,7 @@ const TrackDetailScreen = ({ route }) => {
   return (
     <>
       <MapView
+        provider={PROVIDER_GOOGLE}
         customMapStyle={MAPSTYLE}
         initialRegion={{
           longitudeDelta: 0.01,
@@ -22,9 +23,11 @@ const TrackDetailScreen = ({ route }) => {
         }}
         style={styles.map}
       >
-        <Polyline
-          coordinates={tracks.locations.map((location) => location.coords)}
-        />
+        {locations.length > 0 && (
+          <Polyline
+            coordinates={locations.map((location) => location.coords)}
+          />
+        )}
       </MapView>
     </>
   );
