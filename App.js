@@ -17,6 +17,7 @@ import { Provider as TrackProvider } from "./src/context/trackContext";
 import { useContext } from "react";
 import { setNavigator } from "./src/navigationRefs";
 import { FontAwesome } from "@expo/vector-icons";
+import { StatusBar } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -42,62 +43,68 @@ const App = () => {
   const { state } = useContext(AuthContext);
 
   return state.token ? (
-    <NavigationContainer ref={(navigator) => setNavigator(navigator)}>
-      <Tab.Navigator>
-        <Tab.Screen
-          name={"Home"}
-          component={Home}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ tintColor }) => (
-              <FontAwesome name="th-list" size={24} color="black" />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="TrackCreate"
-          component={TrackCreateScreen}
-          options={{
-            headerShown: false,
-            tabBarIcon: () => (
-              <FontAwesome name="plus" size={24} color="black" />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Account"
-          component={AccountScreen}
-          options={{
-            headerShown: false,
-            tabBarIcon: () => (
-              <FontAwesome name="gear" size={24} color="black" />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <>
+      <StatusBar hidden={false} backgroundColor="#1E90FF" translucent={true} />
+      <NavigationContainer ref={(navigator) => setNavigator(navigator)}>
+        <Tab.Navigator>
+          <Tab.Screen
+            name={"Home"}
+            component={Home}
+            options={{
+              headerShown: false,
+              tabBarIcon: ({ tintColor }) => (
+                <FontAwesome name="th-list" size={24} color="black" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="TrackCreate"
+            component={TrackCreateScreen}
+            options={{
+              headerShown: false,
+              tabBarIcon: () => (
+                <FontAwesome name="plus" size={24} color="black" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Account"
+            component={AccountScreen}
+            options={{
+              headerShown: false,
+              tabBarIcon: () => (
+                <FontAwesome name="gear" size={24} color="black" />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </>
   ) : (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {state.isLoading ? (
+    <>
+      <StatusBar hidden={false} backgroundColor="#1E90FF" translucent={true} />
+      <NavigationContainer>
+        <Stack.Navigator>
+          {state.isLoading ? (
+            <Stack.Screen
+              name="ResolveAuth"
+              component={ResolveAuthScreen}
+              options={{ headerShown: false }}
+            />
+          ) : null}
           <Stack.Screen
-            name="ResolveAuth"
-            component={ResolveAuthScreen}
+            name="Signup"
+            component={SignupScreen}
             options={{ headerShown: false }}
           />
-        ) : null}
-        <Stack.Screen
-          name="Signup"
-          component={SignupScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Signin"
-          component={SigninScreen}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen
+            name="Signin"
+            component={SigninScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 };
 
